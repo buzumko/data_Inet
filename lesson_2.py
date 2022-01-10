@@ -39,17 +39,32 @@ for vacancy in vacancies:
     # print(name)
     link = url + info.get('href')
     salary = vacancy.find('span', {'data-qa': 'vacancy-serp__vacancy-compensation'})
+    salary_list = []
+    salary_min = -1  # -1 обозначает, что информации нет
+    salary_max = -1  # -1 обозначает, что информации нет
+    salary_currency = 'руб.'
     if salary:
-        salary = salary.getText()
-    # print(salary)
+        salary_list = salary.getText().split()
+        if salary_list[0].lower() == 'до':
+            salary_max = int(salary_list[1] + salary_list[2])
+            salary_currency = salary_list[3]
+        elif salary_list[0].lower() == 'от':
+            salary_min = int(salary_list[1] + salary_list[2])
+            salary_max = -2 # так обозначаю отсутсвие верхней границы
+            salary_currency = salary_list[3]
+        else:
+            salary_min = int(salary_list[0] + salary_list[1])
+            salary_max = int(salary_list[3] + salary_list[4])
+            salary_currency = salary_list[5]
+
     vacancy_data['name'] = name
-    vacancy_data['salary'] = salary
+    vacancy_data['salary_min'] = salary_min
+    vacancy_data['salary_max'] = salary_max
+    vacancy_data['salary_currency'] = salary_currency
     vacancy_data['link'] = link
     vacancies_list.append(vacancy_data)
+
 
 pprint(vacancies_list)
 b = pd.DataFrame(vacancies_list)
 b.to_csv("vacancies.csv", sep=";", index=False)
-
-
-
