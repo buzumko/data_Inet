@@ -65,9 +65,10 @@ COOKIES_ENABLED = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'leruaparser.pipelines.LeruaparserPipeline': 300,
-#}
+ITEM_PIPELINES = {
+   'leruaparser.pipelines.LeruaparserPipeline': 300,
+   'leruaparser.pipelines.LeruaPhotosPipeline': 200
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
