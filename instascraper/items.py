@@ -8,9 +8,10 @@ import scrapy
 
 class InstascraperItem(scrapy.Item):
     # define the fields for your item here like:
-    # name = scrapy.Field()
-    user_id = scrapy.Field()
-    username = scrapy.Field()
-    photo = scrapy.Field()
-    likes = scrapy.Field()
-    post_data = scrapy.Field()
+
+    user_id_main = scrapy.Field()
+    user_main_name = scrapy.Field()
+    user_id_fol = scrapy.Field()
+    user_fol_name = scrapy.Field()
+    user_status = scrapy.Field()
+    user_fol_foto_url = scrapy.Field()
